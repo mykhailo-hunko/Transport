@@ -150,9 +150,12 @@
         android:layout_weight="120">
 
         <TableLayout
-            android:id="@+id/tableForShed"
+            android:id="@+id/table"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></TableLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#000000">
+        </TableLayout>
 
     </ScrollView>
 

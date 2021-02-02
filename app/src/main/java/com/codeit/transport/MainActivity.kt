@@ -1,12 +1,11 @@
 package com.codeit.transport
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup.LayoutParams
-import android.widget.RadioGroup
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginBottom
 import com.jackandphantom.customtogglebutton.CustomToggle
 import com.jackandphantom.customtogglebutton.CustomToggle.OnToggleClickListener
 
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var routeCustomToggle: CustomToggle
     private lateinit var distinctCustomToggle: CustomToggle
     private lateinit var radioGroup: RadioGroup
-    private lateinit var tableLayout: TableLayout
+    private lateinit var table: TableLayout
     private lateinit var nearestTramTextView: TextView
     private lateinit var map: MutableMap<String, Tram>
 
@@ -27,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         routeCustomToggle = findViewById(R.id.routeToggle)
         distinctCustomToggle = findViewById(R.id.distinctToggle)
         radioGroup = findViewById(R.id.radioGroup)
-        tableLayout = findViewById(R.id.tableForShed)
+        table = findViewById(R.id.table)
         nearestTramTextView = findViewById(R.id.nearestTram)
 
         map = inzialazeMap()
@@ -60,40 +59,34 @@ class MainActivity : AppCompatActivity() {
 
     private fun fillTableLayout() {
         var tram = map[getKeyString()]
-        tableLayout.isShrinkAllColumns = true
-        tableLayout.isStretchAllColumns = true
         for (i in 0..12) {
-            val tableRow = TableRow(this)
-          /*  tableRow.layoutParams = TableRow.LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT
-            )*/
+            val row = TableRow(this)
             var textView = TextView(this)
-            textView.layoutParams =
-                TableRow.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+
             var currentTime: MutableList<Int> = getMinutesForGivenHour(i + 5, tram!!)
-            textView.text = "" + i + 5
-            tableRow.addView(textView, 0)
-            tableRow.addView(textView)
+
+            textView.text = "" + (i + 5)
+            textView.textSize = 18F
+            textView.setBackgroundColor(Color.WHITE)
+            row.addView(textView)
+
             for (j in 0 until currentTime.size) {
-                textView.text = currentTime[j].toString()
-                //tableRow.addView(textView)
+                textView = TextView(this)
+                textView.textSize = 18F
+                textView.setPadding(10,10,10,10)
+                textView.setBackgroundColor(Color.WHITE)
+                textView.text = currentTime[j].toString() + " "
+                row.addView(textView)
             }
-
-            /*  textView.text = tram!!.list[3].minute.toString()
-              tableRow.addView(textView, 0)*/
-
-
-            tableLayout.addView(tableRow)
+            table.addView(row)
         }
-
     }
 
     private fun getMinutesForGivenHour(hour: Int, tram: Tram): MutableList<Int> {
         var list = mutableListOf<Int>()
         for (time in tram.list) {
             if (time.hour == hour) {
-                list.add(hour)
+                list.add(time.minute)
             }
         }
         return list
