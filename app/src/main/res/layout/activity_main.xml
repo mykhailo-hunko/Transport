@@ -37,6 +37,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Weekday" />
+<!--
+                android:checked="true"
+-->
+
 
             <RadioButton
                 android:id="@+id/saturdayRadioButton"
@@ -111,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Saltivska"
+            android:text="Saltovska"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/hydropark"
@@ -132,6 +136,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/nearestTram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="The hearest tram are arriving at: "
+        android:textSize="16sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -141,8 +152,7 @@
         <TableLayout
             android:id="@+id/tableForShed"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </TableLayout>
+            android:layout_height="wrap_content"></TableLayout>
 
     </ScrollView>
 

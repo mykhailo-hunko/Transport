@@ -1,10 +1,6 @@
 package com.codeit.transport
 
-import kotlinx.serialization.Serializable
+import java.time.LocalTime
 
-
-@Serializable
-data class Tram(val number: Int = 16111, val list: MutableList<String> = mutableListOf<String>("5:22", "6:12")) {
-    
-
+data class Tram(val information: String, val list: MutableList<LocalTime>) {
 }
