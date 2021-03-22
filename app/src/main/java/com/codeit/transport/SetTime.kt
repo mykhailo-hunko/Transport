@@ -4,7 +4,7 @@ import java.time.LocalTime
 
 fun weekDaySalt16(): Tram {
     return Tram(
-        "16 Saltovska Weekday",
+        "16_Saltovska_Weekday",
         mutableListOf(
             LocalTime.parse("05:49"),
             LocalTime.parse("06:10"),
@@ -43,7 +43,7 @@ fun weekDaySalt16(): Tram {
 
 fun saturDaySalt16(): Tram {
     return Tram(
-        "16 Saltovska Saturday",
+        "16_Saltovska_Saturday",
         mutableListOf(
             LocalTime.parse("05:48"),
             LocalTime.parse("06:11"),
@@ -81,7 +81,7 @@ fun saturDaySalt16(): Tram {
 
 fun sunDaySalt16(): Tram {
     return Tram(
-        "16 Saltovska Sunday",
+        "16_Saltovska_Sunday",
         mutableListOf(
             LocalTime.parse("06:12"),
             LocalTime.parse("07:01"),
@@ -118,7 +118,7 @@ fun sunDaySalt16(): Tram {
 
 fun weekDayHydr16(): Tram {
     return Tram(
-        "16 Hydropark Weekday",
+        "16_Hydropark_Weekday",
         mutableListOf(
             LocalTime.parse("06:18"),
             LocalTime.parse("06:40"),
@@ -156,7 +156,7 @@ fun weekDayHydr16(): Tram {
 
 fun saturDayHydr16(): Tram {
     return Tram(
-        "16 Hydropark Saturday",
+        "16_Hydropark_Saturday",
         mutableListOf(
             LocalTime.parse("06:17"),
             LocalTime.parse("06:40"),
@@ -194,7 +194,7 @@ fun saturDayHydr16(): Tram {
 
 fun sunDayHydr16(): Tram {
     return Tram(
-        "16 Hydropark Sunday",
+        "16_Hydropark_Sunday",
         mutableListOf(
             LocalTime.parse("06:41"),
             LocalTime.parse("07:30"),
@@ -230,7 +230,7 @@ fun sunDayHydr16(): Tram {
 
 fun weekDaySalt16A(): Tram {
     return Tram(
-        "16A Saltovska Weekday",
+        "16A_Saltovska_Weekday",
         mutableListOf(
             LocalTime.parse("05:56"),
             LocalTime.parse("06:20"),
@@ -269,7 +269,7 @@ fun weekDaySalt16A(): Tram {
 
 fun saturDaySalt16A(): Tram {
     return Tram(
-        "16A Saltovska Saturday",
+        "16A_Saltovska_Saturday",
         mutableListOf(
             LocalTime.parse("05:58"),
             LocalTime.parse("06:17"),
@@ -307,7 +307,7 @@ fun saturDaySalt16A(): Tram {
 
 fun sunDaySalt16A(): Tram {
     return Tram(
-        "16A Saltovska Sunday",
+        "16A_Saltovska_Sunday",
         mutableListOf(
             LocalTime.parse("06:37"),
             LocalTime.parse("07:09"),
@@ -345,7 +345,7 @@ fun sunDaySalt16A(): Tram {
 
 fun weekDayHydr16A(): Tram {
     return Tram(
-        "16A Hydropark Weekday",
+        "16A_Hydropark_Weekday",
         mutableListOf(
             LocalTime.parse("06:47"),
             LocalTime.parse("07:10"),
@@ -383,7 +383,7 @@ fun weekDayHydr16A(): Tram {
 
 fun saturDayHydr16A(): Tram {
     return Tram(
-        "16A Hydropark Saturday",
+        "16A_Hydropark_Saturday",
         mutableListOf(
             LocalTime.parse("06:46"),
             LocalTime.parse("07:05"),
@@ -421,7 +421,7 @@ fun saturDayHydr16A(): Tram {
 
 fun sunDayHydr16A(): Tram {
     return Tram(
-        "16A Hydropark Sunday",
+        "16A_Hydropark_Sunday",
         mutableListOf(
             LocalTime.parse("07:25"),
             LocalTime.parse("07:57"),
@@ -459,18 +459,18 @@ fun sunDayHydr16A(): Tram {
 
 fun inzialazeMap(): MutableMap<String, Tram> {
     var map: MutableMap<String, Tram> = mutableMapOf()
-    map["16A Saltovska Weekday"] = weekDaySalt16A()
-    map["16A Saltovska Saturday"] = saturDaySalt16A()
-    map["16A Saltovska Sunday"] = sunDaySalt16A()
-    map["16 Saltovska Weekday"] = weekDaySalt16()
-    map["16 Saltovska Saturday"] = saturDaySalt16()
-    map["16 Saltovska Sunday"] = sunDaySalt16()
-    map["16A Hydropark Weekday"] = weekDayHydr16A()
-    map["16A Hydropark Saturday"] = saturDayHydr16A()
-    map["16A Hydropark Sunday"] = sunDayHydr16A()
-    map["16 Hydropark Weekday"] = weekDayHydr16()
-    map["16 Hydropark Saturday"] = saturDayHydr16()
-    map["16 Hydropark Sunday"] = sunDayHydr16()
+    map["16A_Saltovska_Weekday"] = weekDaySalt16A()
+    map["16A_Saltovska_Saturday"] = saturDaySalt16A()
+    map["16A_Saltovska_Sunday"] = sunDaySalt16A()
+    map["16_Saltovska_Weekday"] = weekDaySalt16()
+    map["16_Saltovska_Saturday"] = saturDaySalt16()
+    map["16_Saltovska_Sunday"] = sunDaySalt16()
+    map["16A_Hydropark_Weekday"] = weekDayHydr16A()
+    map["16A_Hydropark_Saturday"] = saturDayHydr16A()
+    map["16A_Hydropark_Sunday"] = sunDayHydr16A()
+    map["16_Hydropark_Weekday"] = weekDayHydr16()
+    map["16_Hydropark_Saturday"] = saturDayHydr16()
+    map["16_Hydropark_Sunday"] = sunDayHydr16()
 
     return map
 }
