@@ -1,84 +1,118 @@
 package com.codeit.transport
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
-import android.view.ViewGroup.LayoutParams
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginBottom
-import com.jackandphantom.customtogglebutton.CustomToggle
-import com.jackandphantom.customtogglebutton.CustomToggle.OnToggleClickListener
+import androidx.core.view.setPadding
+import java.time.LocalTime
 
 
 class MainActivity : AppCompatActivity() {
 
 
-    private lateinit var routeCustomToggle: CustomToggle
-    private lateinit var distinctCustomToggle: CustomToggle
-    private lateinit var radioGroup: RadioGroup
+    private lateinit var routeRadioGroup: RadioGroup
+    private lateinit var tramStopRadioGroup: RadioGroup
+    private lateinit var dayRadioGroup: RadioGroup
     private lateinit var table: TableLayout
     private lateinit var nearestTramTextView: TextView
+    private lateinit var toHydroparkButton: Button
+    private lateinit var toPavlovaButton: Button
+    private lateinit var saltRadioButton: RadioButton
+    private lateinit var route16RadioButton: RadioButton
     private lateinit var map: MutableMap<String, Tram>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        routeCustomToggle = findViewById(R.id.routeToggle)
-        distinctCustomToggle = findViewById(R.id.distinctToggle)
-        radioGroup = findViewById(R.id.radioGroup)
+        routeRadioGroup = findViewById(R.id.routeRadioGroup)
+        tramStopRadioGroup = findViewById(R.id.tramStopRadioGroup)
+        dayRadioGroup = findViewById(R.id.dayRadioGroup)
         table = findViewById(R.id.table)
         nearestTramTextView = findViewById(R.id.nearestTram)
-
+/*        toHydroparkButton = findViewById(R.id.toHydroparkButton)
+        toPavlovaButton = findViewById(R.id.toPavlovaButton)*/
+        saltRadioButton = findViewById(R.id.saltRadioButton)
+        route16RadioButton = findViewById(R.id.radioButton16)
         map = inzialazeMap()
-        // Toast.makeText(this, routeCustomToggle.isEnabled.toString(), Toast.LENGTH_LONG).show()
-
-        routeCustomToggle.setOnToggleClickListener(object : OnToggleClickListener {
-            override fun onLefToggleEnabled(enabled: Boolean) {
-                fillTableLayout()
-            }
-
-            override fun onRightToggleEnabled(enabled: Boolean) {
-                fillTableLayout()
-            }
-        })
-
-        distinctCustomToggle.setOnToggleClickListener(object : OnToggleClickListener {
-            override fun onLefToggleEnabled(enabled: Boolean) {
-                fillTableLayout()
-            }
-
-            override fun onRightToggleEnabled(enabled: Boolean) {
-                fillTableLayout()
-            }
-        })
-
-        radioGroup.setOnCheckedChangeListener { _: RadioGroup, _: Int ->
+        fillTableLayout()
+        var onCheckedChangeListener = RadioGroup.OnCheckedChangeListener { _: RadioGroup, _: Int ->
             fillTableLayout()
         }
+
+        dayRadioGroup.setOnCheckedChangeListener(onCheckedChangeListener)
+        routeRadioGroup.setOnCheckedChangeListener(onCheckedChangeListener)
+        tramStopRadioGroup.setOnCheckedChangeListener(onCheckedChangeListener)
+
+     /*   toHydroparkButton.setOnClickListener {
+            route16RadioButton.isChecked = false
+            saltRadioButton.isChecked = true
+        }
+
+        toPavlovaButton.setOnClickListener {
+            route16RadioButton.isChecked = true
+            saltRadioButton.isChecked = false
+        }*/
+
     }
 
     private fun fillTableLayout() {
+        val count = table.childCount
+        for (i in 0 until count) {
+            val child: View = table.getChildAt(i)
+            if (child is TableRow) (child as ViewGroup).removeAllViews()
+        }
         var tram = map[getKeyString()]
-        for (i in 0..12) {
+        setNearestTram(tram!!)
+        for (i in 0..13) {
             val row = TableRow(this)
             var textView = TextView(this)
 
             var currentTime: MutableList<Int> = getMinutesForGivenHour(i + 5, tram!!)
 
-            textView.text = "" + (i + 5)
-            textView.textSize = 18F
+            textView.text = if (i + 5 < 10) {
+                " " + (i + 5) + " "
+            } else {
+                "" + (i + 5) + " "
+            }
+            textView.textSize = 20F
+            textView.typeface = Typeface.DEFAULT_BOLD
             textView.setBackgroundColor(Color.WHITE)
             row.addView(textView)
 
             for (j in 0 until currentTime.size) {
                 textView = TextView(this)
                 textView.textSize = 18F
-                textView.setPadding(10,10,10,10)
+                textView.setPadding(10)
+                textView.gravity = Gravity.END + Gravity.CENTER_VERTICAL//Gravity.CENTER
                 textView.setBackgroundColor(Color.WHITE)
                 textView.text = currentTime[j].toString() + " "
                 row.addView(textView)
             }
             table.addView(row)
+        }
+    }
+
+    private fun setNearestTram(tram: Tram) {
+        var timeNow = LocalTime.now()
+        var minutesForAdd = if (tram.information.startsWith("16A")) {
+            25L
+        } else {
+            4L
+        }
+        for (i in tram.list) {
+            if (timeNow.hour == i.hour) {
+                if (i.plusMinutes(minutesForAdd) > timeNow) {
+                    var futureTram = i.plusMinutes(minutesForAdd)
+                    nearestTramTextView.text =
+                        "The hearest tram are arriving at: ${futureTram.hour}:${futureTram.minute}"
+                    return
+                }
+            }
         }
     }
 
@@ -90,22 +124,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return list
+
     }
 
 
-    fun getKeyString(): String {
+    private fun getKeyString(): String {
         var key = StringBuilder()
-        if (routeCustomToggle.isEnabled) {
-            key.append("16 ")
-        } else {
-            key.append("16A ")
+        when (routeRadioGroup.checkedRadioButtonId) {
+            R.id.radioButton16 -> key.append("16 ")
+            R.id.radioButton16A -> key.append("16A ")
         }
-        if (distinctCustomToggle.isEnabled) {
-            key.append("Saltovska ")
-        } else {
-            key.append("Hydropark ")
+        when (tramStopRadioGroup.checkedRadioButtonId) {
+            R.id.saltRadioButton -> key.append("Saltovska ")
+            R.id.hydrRadioButton -> key.append("Hydropark ")
         }
-        when (radioGroup.checkedRadioButtonId) {
+        when (dayRadioGroup.checkedRadioButtonId) {
             R.id.weekDayRadioButton -> key.append("Weekday")
             R.id.saturdayRadioButton -> key.append("Saturday")
             R.id.sundayRadioButton -> key.append("Sunday")
