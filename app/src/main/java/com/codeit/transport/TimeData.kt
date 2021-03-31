@@ -2,9 +2,9 @@ package com.codeit.transport
 
 import java.time.LocalTime
 
-class TimeData(private val Schedule: MutableList<MutableList<LocalTime>>) {
+class TimeData {
+    private val schedule: MutableList<MutableList<LocalTime>> = mutableListOf()
     private val numberOfWays: Int = 12;
-
     private val _stopsNames : MutableList<String> = mutableListOf("16A_Saltovska_Weekday", "16A_Saltovska_Saturday", "16A_Saltovska_Sunday", "16_Saltovska_Weekday", "16_Saltovska_Saturday", "16_Saltovska_Sunday", "16A_Hydropark_Weekday", "16A_Hydropark_Saturday", "16A_Hydropark_Sunday", "16_Hydropark_Weekday", "16_Hydropark_Saturday", "16_Hydropark_Sunday")
     private val _salt16Weekday : MutableList<String> = mutableListOf("05:49" , "06:10" , "06:25" , "06:45" , "07:09" , "07:36" , "07:49" , "08:12" , "08:32" , "08:57" , "09:21" , "09:38" , "09:57" , "10:40" , "11:02" , "11:26" , "11:48" , "12:02" , "12:26" , "12:51" , "13:13" , "13:48" , "14:13" , "14:35" , "14:57" , "15:11" , "15:35" , "16:03" , "16:33" , "17:00" , "17:27");
     private val _salt16Saturday : MutableList<String> = mutableListOf("05:48" , "06:11" , "06:29" , "06:49" , "07:08" , "07:28" , "07:53" , "08:14" , "08:33" , "08:47" , "09:11" , "09:37" , "10:12" , "10:35" , "10:59" , "11:26" , "11:46" , "12:02" , "12:20" , "12:52" , "13:08" , "13:22" , "13:42" , "14:13" , "14:49" , "15:07" , "15:35" , "15:51" , "16:08" , "16:33");
@@ -18,31 +18,36 @@ class TimeData(private val Schedule: MutableList<MutableList<LocalTime>>) {
     private val _hydr16AWeekday : MutableList<String> = mutableListOf("06:47" , "07:10" , "07:31" , "07:51" , "08:07" , "08:36" , "08:51" , "09:10" , "09:32" , "09:54" , "10:21" , "10:37" , "11:12" , "11:43" , "12:08" , "12:29" , "12:43" , "13:04" , "13:27" , "13:50" , "14:08" , "14:51" , "15:14" , "15:39" , "16:16" , "16:44" , "17:07" , "17:36" , "18:12" , "18:34");
     private val _hydr16ASaturday : MutableList<String> = mutableListOf("06:46" , "07:05" , "07:25" , "07:53" , "08:11" , "08:30" , "08:52" , "09:18" , "09:32" , "09:47" , "10:12" , "10:47" , "11:18" , "11:37" , "11:58" , "12:23" , "12:42" , "13:03" , "13:26" , "13:53" , "14:06" , "14:27" , "14:46" , "15:14" , "15:52" , "16:08" , "16:36" , "16:51" , "17:11" , "17:40");
     private val _hydr16ASunday : MutableList<String> = mutableListOf("07:25" , "07:57" , "08:11" , "08:29" , "08:47" , "09:19" , "09:31" , "09:47" , "10:13" , "10:51" , "11:09" , "11:29" , "11:59" , "12:31" , "12:45" , "12:57" , "13:25" , "13:53" , "14:06" , "14:20" , "14:48" , "15:12" , "15:47" , "16:07" , "16:38" , "16:53" , "17:26" , "17:46" , "18:01" , "18:23");
-    private var _allStops = mutableListOf<MutableList<String>>(
-        mutableListOf(_salt16Weekday.toString()),
-        mutableListOf(_salt16Saturday.toString()),
-        mutableListOf(_salt16Sunday.toString()),
-        mutableListOf(_hydr16Weekday.toString()),
-        mutableListOf(_hydr16Saturday.toString()),
-        mutableListOf(_hydr16Sunday.toString()),
-        mutableListOf(_salt16AWeekday.toString()),
-        mutableListOf(_salt16ASaturday.toString()),
-        mutableListOf(_salt16ASunday.toString()),
-        mutableListOf(_hydr16AWeekday.toString()),
-        mutableListOf(_hydr16ASaturday.toString()),
-        mutableListOf(_hydr16ASunday.toString())
-    )
+    private var _allStops = mutableListOf(
+        _salt16Weekday,
+        _salt16Saturday,
+        _salt16Sunday,
+        _hydr16Weekday,
+        _hydr16Saturday,
+        _hydr16Sunday,
+        _salt16AWeekday,
+        _salt16ASaturday,
+        _salt16ASunday,
+        _hydr16AWeekday,
+        _hydr16ASaturday,
+        _hydr16ASunday)
+
     private var tramMap: MutableMap<String, Tram> = mutableMapOf()
 
+
     init{
-        for(i in 0..numberOfWays){
-            for(j in 0.._allStops.size){
-                Schedule[i].add(LocalTime.parse(_allStops[j].toString()))
+        for(i in 0 until numberOfWays){
+            val list = mutableListOf<LocalTime>()
+            for(j in 0 until _allStops[i].size){
+                list.add(LocalTime.parse(_allStops[i][j]))
             }
-            val tmpTram = Tram(_stopsNames[i], Schedule[i])
+            schedule.add(list)
+            val tmpTram = Tram(_stopsNames[i], schedule[i])
             tramMap[_stopsNames[i]] = tmpTram
         }
     }
+
+
 
     fun getStationMap(): MutableMap<String, Tram>{
         return tramMap

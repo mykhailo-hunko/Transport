@@ -23,7 +23,7 @@ class TransportActivity : AppCompatActivity() {
     private lateinit var editText: AutoCompleteTextView
 
     private lateinit var map: MutableMap<String, Tram>
-    private lateinit var timeData: TimeData
+    private val timeData: TimeData = TimeData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,7 @@ class TransportActivity : AppCompatActivity() {
 
     private fun setAdapterForInput() {
         val key = getKeyString()
-        var stringArray = when {
+        val stringArray = when {
             key.startsWith("16A_Saltovska") -> {
                 resources.getStringArray(R.array.stops_16a_to_hydr)
             }
