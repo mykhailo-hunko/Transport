@@ -23,6 +23,7 @@ class TransportActivity : AppCompatActivity() {
     private lateinit var editText: AutoCompleteTextView
 
     private lateinit var map: MutableMap<String, Tram>
+    private lateinit var timeData: TimeData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +33,9 @@ class TransportActivity : AppCompatActivity() {
         dayRadioGroup = findViewById(R.id.dayRadioGroup)
         table = findViewById(R.id.table)
         nearestTramTextView = findViewById(R.id.nearestTram)
-        map = inzialazeMap()
-       editText = findViewById(R.id.autoTextView)
+        //map = inzialazeMap()
+        map = timeData.getStationMap()
+        editText = findViewById(R.id.autoTextView)
         setAdapterForInput()
         fillTableLayout()
         val onCheckedChangeListener = RadioGroup.OnCheckedChangeListener { _: RadioGroup, _: Int ->
@@ -161,22 +163,3 @@ class TransportActivity : AppCompatActivity() {
         return key.toString()
     }
 }
-/* companion object {
-        private const val WEEKDAY_16_SALT = "16SaltovskaWeekday.json";
-        private const val SATURDAY_16_SALT = "16SaltovskaSaturdayday.json";
-        private const val SUNDAY_16_SALT = "16SaltovskaSunday.json";
-        private const val WEEKDAY_16_HYDROPARK = "16HydroparkWeekday.json";
-        private const val SATURDAY_16_HYDROPARK = "16HydroparkSaturdayday.json";
-        private const val SUNDAY_16_HYDROPARK = "16HydroparkSunday.json";
-
-
-        private const val WEEKDAY_16A_SALT = "16ASaltovskaSaturdayday.json";
-        private const val SATURDAY_16A_SALT = "16ASaltovskaSaturdayday.json";
-        private const val SUNDAY_16A_SALT = "16ASaltovskaSunday.json";
-        private const val WEEKDAY_16A_HYDROPARK = "16AHydroparkWeekday.json";
-        private const val SATURDAY_16A_HYDROPARK = "16AHydroparkSaturdayday.json";
-        private const val SUNDAY_16A_HYDROPARK = "16AHydroparkSunday.json";
-    }*/
-/*
-val dt = LocalTime.parse("23:22");
-println(dt.hour)*/
