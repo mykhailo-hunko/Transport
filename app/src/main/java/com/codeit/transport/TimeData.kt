@@ -3,7 +3,8 @@ package com.codeit.transport
 import android.content.Context
 import java.time.LocalTime
 
-class TimeData(val context : Context){
+class TimeData{
+    var context : Context? = null
     private val schedule: MutableList<MutableList<LocalTime>> = mutableListOf()
     private val numberOfWays: Int = 12;
     private val _stopsNames : MutableList<String> = mutableListOf("16A_Saltovska_Weekday", "16A_Saltovska_Saturday", "16A_Saltovska_Sunday", "16_Saltovska_Weekday", "16_Saltovska_Saturday", "16_Saltovska_Sunday", "16A_Hydropark_Weekday", "16A_Hydropark_Saturday", "16A_Hydropark_Sunday", "16_Hydropark_Weekday", "16_Hydropark_Saturday", "16_Hydropark_Sunday")
@@ -52,34 +53,41 @@ class TimeData(val context : Context){
             val tmpTram = Tram(_stopsNames[i], schedule[i])
             tramMap[_stopsNames[i]] = tmpTram
         }
-
-        initAllStations()
     }
 
     fun initAllStations(){
-        val Hydr16 = mutableListOf<String>(*context.resources.getStringArray(R.array.stops_16_to_hydr))
-        val Salt16 = mutableListOf<String>(*context.resources.getStringArray(R.array.stops_16_to_salt))
-        val Hydr16A = mutableListOf<String>(*context.resources.getStringArray(R.array.stops_16a_to_hydr))
-        val Salt16A = mutableListOf<String>(*context.resources.getStringArray(R.array.stops_16a_to_salt))
-        val Hydr16Size : Int = 27
-        val Salt16Size : Int = 16
-        val Hydr16ASize : Int = 28
-        val Salt16ASize : Int = 15
+        val hydr16 = mutableListOf<String>()
 
-        for(i in 0 until Hydr16Size){
-            Hydr16Map[i] = Hydr16[i]
+        val salt16 = mutableListOf<String>()
+
+        val hydr16A = mutableListOf<String>()
+
+        val salt16A = mutableListOf<String>()
+        context?.let {
+            hydr16.addAll(it.resources.getStringArray(R.array.stops_16_to_hydr).toList())
+            salt16A.addAll(it.resources.getStringArray(R.array.stops_16a_to_salt).toList())
+            hydr16A.addAll(it.resources.getStringArray(R.array.stops_16a_to_hydr).toList())
+            salt16.addAll(it.resources.getStringArray(R.array.stops_16_to_salt).toList())
+        }
+        val hydr16Size = 27
+        val salt16Size = 16
+        val hydr16ASize = 28
+        val salt16ASize = 15
+
+        for(i in 0 until hydr16Size){
+            Hydr16Map[i] = hydr16[i]
         }
 
-        for(i in 0 until Salt16Size){
-            Salt16Map[i] = Salt16[i]
+        for(i in 0 until salt16Size){
+            Salt16Map[i] = salt16[i]
         }
 
-        for(i in 0 until Hydr16ASize){
-            Hydr16AMap[i] = Hydr16A[i]
+        for(i in 0 until hydr16ASize){
+            Hydr16AMap[i] = hydr16A[i]
         }
 
-        for(i in 0 until Salt16ASize){
-            Salt16AMap[i] = Salt16A[i]
+        for(i in 0 until salt16ASize){
+            Salt16AMap[i] = salt16A[i]
         }
     }
 

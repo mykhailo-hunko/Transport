@@ -21,9 +21,10 @@ class TransportActivity : AppCompatActivity() {
     private lateinit var table: TableLayout
     private lateinit var nearestTramTextView: TextView
     private lateinit var editText: AutoCompleteTextView
+    private lateinit var applyButton: Button
 
     private lateinit var map: MutableMap<String, Tram>
-    private val timeData: TimeData = TimeData(this)
+    private val timeData: TimeData = TimeData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +47,14 @@ class TransportActivity : AppCompatActivity() {
         dayRadioGroup.setOnCheckedChangeListener(onCheckedChangeListener)
         routeRadioGroup.setOnCheckedChangeListener(onCheckedChangeListener)
         tramStopRadioGroup.setOnCheckedChangeListener(onCheckedChangeListener)
-
+        timeData.apply {
+            context = applicationContext
+        }
+        timeData.initAllStations()
+        applyButton.setOnClickListener{
+           //todo interaction with button
+            //editText.text
+        }
     }
 
     private fun setAdapterForInput() {
@@ -73,7 +81,7 @@ class TransportActivity : AppCompatActivity() {
         editText.setAdapter(adapter)
     }
 
-    private fun fillTableLayout() {
+    private fun fillTableLayout() { //fill table with scedule
         val count = table.childCount
         for (i in 0 until count) {
             val child: View = table.getChildAt(i)
@@ -82,16 +90,16 @@ class TransportActivity : AppCompatActivity() {
         val tram: Tram = map[getKeyString()]!!
         setNearestTram(tram)
 
-        for (i in 0..13) {
+        for (i in (0 + SHIFT_FOR_HOURS)..(13+ SHIFT_FOR_HOURS)) {
             val row = TableRow(this)
             var textView = TextView(this)
 
-            val currentTime = getMinutesForGivenHour(i + 5, tram)
+            val currentTime = getMinutesForGivenHour(i, tram)
 
-            textView.text = if (i + 5 < 10) {
-                " " + (i + 5) + " "
+            textView.text = if (i < 10) {
+                " $i "
             } else {
-                "" + (i + 5) + " "
+                "$i "
             }
             textView.textSize = 20F
             textView.typeface = Typeface.DEFAULT_BOLD
@@ -161,5 +169,9 @@ class TransportActivity : AppCompatActivity() {
             R.id.sundayRadioButton -> key.append("Sunday")
         }
         return key.toString()
+    }
+
+    companion object{
+        const val SHIFT_FOR_HOURS = 5
     }
 }
