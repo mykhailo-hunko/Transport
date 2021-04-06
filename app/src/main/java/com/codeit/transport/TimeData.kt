@@ -1,8 +1,9 @@
 package com.codeit.transport
 
+import android.content.Context
 import java.time.LocalTime
 
-class TimeData {
+class TimeData(val context : Context){
     private val schedule: MutableList<MutableList<LocalTime>> = mutableListOf()
     private val numberOfWays: Int = 12;
     private val _stopsNames : MutableList<String> = mutableListOf("16A_Saltovska_Weekday", "16A_Saltovska_Saturday", "16A_Saltovska_Sunday", "16_Saltovska_Weekday", "16_Saltovska_Saturday", "16_Saltovska_Sunday", "16A_Hydropark_Weekday", "16A_Hydropark_Saturday", "16A_Hydropark_Sunday", "16_Hydropark_Weekday", "16_Hydropark_Saturday", "16_Hydropark_Sunday")
@@ -19,20 +20,26 @@ class TimeData {
     private val _hydr16ASaturday : MutableList<String> = mutableListOf("06:46" , "07:05" , "07:25" , "07:53" , "08:11" , "08:30" , "08:52" , "09:18" , "09:32" , "09:47" , "10:12" , "10:47" , "11:18" , "11:37" , "11:58" , "12:23" , "12:42" , "13:03" , "13:26" , "13:53" , "14:06" , "14:27" , "14:46" , "15:14" , "15:52" , "16:08" , "16:36" , "16:51" , "17:11" , "17:40");
     private val _hydr16ASunday : MutableList<String> = mutableListOf("07:25" , "07:57" , "08:11" , "08:29" , "08:47" , "09:19" , "09:31" , "09:47" , "10:13" , "10:51" , "11:09" , "11:29" , "11:59" , "12:31" , "12:45" , "12:57" , "13:25" , "13:53" , "14:06" , "14:20" , "14:48" , "15:12" , "15:47" , "16:07" , "16:38" , "16:53" , "17:26" , "17:46" , "18:01" , "18:23");
     private var _allStops = mutableListOf(
-        _salt16Weekday,
-        _salt16Saturday,
-        _salt16Sunday,
-        _hydr16Weekday,
-        _hydr16Saturday,
-        _hydr16Sunday,
         _salt16AWeekday,
         _salt16ASaturday,
         _salt16ASunday,
+        _salt16Weekday,
+        _salt16Saturday,
+        _salt16Sunday,
         _hydr16AWeekday,
         _hydr16ASaturday,
-        _hydr16ASunday)
+        _hydr16ASunday,
+        _hydr16Weekday,
+        _hydr16Saturday,
+        _hydr16Sunday
+        )
 
     private var tramMap: MutableMap<String, Tram> = mutableMapOf()
+    private var Hydr16Map: MutableMap<Int, String> = mutableMapOf()
+    private var Salt16Map: MutableMap<Int, String> = mutableMapOf()
+    private var Hydr16AMap: MutableMap<Int, String> = mutableMapOf()
+    private var Salt16AMap: MutableMap<Int, String> = mutableMapOf()
+    private val currentStationMap: MutableMap<String, Tram> = mutableMapOf()
 
 
     init{
@@ -45,11 +52,54 @@ class TimeData {
             val tmpTram = Tram(_stopsNames[i], schedule[i])
             tramMap[_stopsNames[i]] = tmpTram
         }
+
+        initAllStations()
     }
 
+    fun initAllStations(){
+        val Hydr16 = mutableListOf<String>(*context.resources.getStringArray(R.array.stops_16_to_hydr))
+        val Salt16 = mutableListOf<String>(*context.resources.getStringArray(R.array.stops_16_to_salt))
+        val Hydr16A = mutableListOf<String>(*context.resources.getStringArray(R.array.stops_16a_to_hydr))
+        val Salt16A = mutableListOf<String>(*context.resources.getStringArray(R.array.stops_16a_to_salt))
+        val Hydr16Size : Int = 27
+        val Salt16Size : Int = 16
+        val Hydr16ASize : Int = 28
+        val Salt16ASize : Int = 15
 
+        for(i in 0 until Hydr16Size){
+            Hydr16Map[i] = Hydr16[i]
+        }
+
+        for(i in 0 until Salt16Size){
+            Salt16Map[i] = Salt16[i]
+        }
+
+        for(i in 0 until Hydr16ASize){
+            Hydr16AMap[i] = Hydr16A[i]
+        }
+
+        for(i in 0 until Salt16ASize){
+            Salt16AMap[i] = Salt16A[i]
+        }
+    }
 
     fun getStationMap(): MutableMap<String, Tram>{
         return tramMap
+    }
+
+    //fun getCurrentStationTime(stationName: String, path: String){
+   //}
+
+    fun generateScheldule(multiple: Int, path: String): MutableMap<String, Tram>{
+        val localTimeList:  MutableList<LocalTime> = mutableListOf()
+
+        for(i in 0..(tramMap[path]?.list?.size ?: 0)){
+            val tmpTime: LocalTime = LocalTime.now()
+            localTimeList.add(((tramMap[path]?.list?.get(i)?.plusMinutes((multiple*2).toLong()) ?: 0) as LocalTime))
+        }
+
+        val tmp = Tram(path, localTimeList)
+        currentStationMap[path] = tmp
+        return currentStationMap
     }
 }

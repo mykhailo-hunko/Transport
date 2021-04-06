@@ -23,7 +23,7 @@ class TransportActivity : AppCompatActivity() {
     private lateinit var editText: AutoCompleteTextView
 
     private lateinit var map: MutableMap<String, Tram>
-    private val timeData: TimeData = TimeData()
+    private val timeData: TimeData = TimeData(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
