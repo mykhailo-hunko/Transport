@@ -42,6 +42,13 @@ class TimeData{
     private var Salt16AMap: MutableMap<Int, String> = mutableMapOf()
     private val currentStationMap: MutableMap<String, Tram> = mutableMapOf()
 
+    val hydr16 = mutableListOf<String>()
+
+    val salt16 = mutableListOf<String>()
+
+    val hydr16A = mutableListOf<String>()
+
+    val salt16A = mutableListOf<String>()
 
     init{
         for(i in 0 until numberOfWays){
@@ -56,13 +63,6 @@ class TimeData{
     }
 
     fun initAllStations(){
-        val hydr16 = mutableListOf<String>()
-
-        val salt16 = mutableListOf<String>()
-
-        val hydr16A = mutableListOf<String>()
-
-        val salt16A = mutableListOf<String>()
         context?.let {
             hydr16.addAll(it.resources.getStringArray(R.array.stops_16_to_hydr).toList())
             salt16A.addAll(it.resources.getStringArray(R.array.stops_16a_to_salt).toList())
@@ -95,13 +95,38 @@ class TimeData{
         return tramMap
     }
 
-    //fun getCurrentStationTime(stationName: String, path: String){
-   //}
+    fun getCurrentStationMap(): MutableMap<String, Tram>{
+        return currentStationMap
+    }
+
+    fun getCurrentStationTime(path: String, station: String){
+        //for(Pat in Paths.values()){
+        //}
+        val multiple = when {
+            path.startsWith("16A_Saltovska") -> {
+                salt16A.indexOf(salt16A.firstOrNull{s: String ->s == station})
+            }
+            path.startsWith("16A_Hydropark") -> {
+                hydr16A.indexOf(hydr16A.firstOrNull{s: String ->s == station})
+            }
+            path.startsWith("16_Saltovska") -> {
+                salt16.indexOf(salt16.firstOrNull{s: String ->s == station})
+            }
+            path.startsWith("16_Hydropark") -> {
+                hydr16.indexOf(hydr16.firstOrNull{s: String ->s == station})
+            }
+            else ->{
+                -1
+            }
+        }
+
+        generateScheldule(multiple + 1, path)
+   }
 
     fun generateScheldule(multiple: Int, path: String): MutableMap<String, Tram>{
         val localTimeList:  MutableList<LocalTime> = mutableListOf()
 
-        for(i in 0..(tramMap[path]?.list?.size ?: 0)){
+        for(i in 0 until (tramMap[path]?.list?.size ?: 0)){
             val tmpTime: LocalTime = LocalTime.now()
             localTimeList.add(((tramMap[path]?.list?.get(i)?.plusMinutes((multiple*2).toLong()) ?: 0) as LocalTime))
         }

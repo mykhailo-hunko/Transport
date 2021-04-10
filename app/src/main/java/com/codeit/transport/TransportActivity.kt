@@ -38,9 +38,9 @@ class TransportActivity : AppCompatActivity() {
         map = timeData.getStationMap()
         editText = findViewById(R.id.autoTextView)
         setAdapterForInput()
-        fillTableLayout()
+        //fillTableLayout()
         val onCheckedChangeListener = RadioGroup.OnCheckedChangeListener { _: RadioGroup, _: Int ->
-            fillTableLayout()
+            //fillTableLayout()
             setAdapterForInput()
         }
 
@@ -51,9 +51,12 @@ class TransportActivity : AppCompatActivity() {
             context = applicationContext
         }
         timeData.initAllStations()
-        applyButton.setOnClickListener{
-           //todo interaction with button
-            //editText.text
+        applyButton = findViewById(R.id.applyButton)
+        applyButton.setOnClickListener {
+            //todo interaction with button
+            val stopName: String = editText.text.toString()
+            timeData.getCurrentStationTime(getKeyString(), stopName)
+            fillTableLayout()
         }
     }
 
@@ -87,10 +90,11 @@ class TransportActivity : AppCompatActivity() {
             val child: View = table.getChildAt(i)
             if (child is TableRow) (child as ViewGroup).removeAllViews()
         }
-        val tram: Tram = map[getKeyString()]!!
+        //val tram: Tram = map[getKeyString()]!!
+        val tram: Tram = timeData.getCurrentStationMap()[getKeyString()]!!
         setNearestTram(tram)
 
-        for (i in (0 + SHIFT_FOR_HOURS)..(13+ SHIFT_FOR_HOURS)) {
+        for (i in (0 + SHIFT_FOR_HOURS)..(13 + SHIFT_FOR_HOURS)) {
             val row = TableRow(this)
             var textView = TextView(this)
 
@@ -171,7 +175,7 @@ class TransportActivity : AppCompatActivity() {
         return key.toString()
     }
 
-    companion object{
+    companion object {
         const val SHIFT_FOR_HOURS = 5
     }
 }
