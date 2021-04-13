@@ -12,56 +12,6 @@
     <string name="hydropark">Hydropark</string>
     <string name="saltovska">Saltovska</string>
 
-    <string-array name="stops_16_to_hydr">
-        <item>Салтовская</item>
-        <item>улица Бучмы</item>
-        <item>11-ая поликлиника</item>
-        <item>Владимирская церковь</item>
-        <item>531 микрорайон</item>
-        <item>ул. Гвардейцев Широнинцев</item>
-        <item>Салтовский рынок</item>
-        <item>ст. м. Героев Труда</item>
-        <item>522 микрорайон</item>
-        <item>ст. м. Студенческая</item>
-        <item>ул. Пешкова</item>
-        <item>ст. м. Академика Павлова</item>
-        <item>проулок Муроский</item>
-        <item>ст. м. Академика Барабошово</item>
-        <item>проулок Солнечный</item>
-        <item>ул. Камышева</item>
-        <item>проулок Салтовский</item>
-        <item>Сабурова Дача</item>
-        <item>ул. Тюринская</item>
-        <item>Моисеевский мост</item>
-        <item>ул. Пестеля</item>
-        <item>ст. м. Киевская</item>
-        <item>ул. Кольцовская</item>
-        <item>Жилищно-коммунальный техникум</item>
-        <item>ул. Луганская</item>
-        <item>ул. Тахиаташская</item>
-        <item>Журавлевский гидропарк</item>
-    </string-array>
-
-    <string-array name="stops_16_to_salt">
-        <item>Журавлевский гидропарк</item>
-        <item>ул. Колпака</item>
-        <item>ул. Саперная</item>
-        <item>ул. Жильярды</item>
-        <item>Сосновый бор</item>
-        <item>ул. Барабошово</item>
-        <item>Пески</item>
-        <item>524 мкр</item>
-        <item>ст. м. Героев Труда</item>
-        <item>Салтовский рынок</item>
-        <item>ул. Гвардейцев Широнинцев</item>
-        <item>531 микрорайон</item>
-        <item>Владимирская церковь</item>
-        <item>11-ая поликлиника</item>
-        <item>улица Бучмы</item>
-        <item>Салтовская</item>
-    </string-array>
-
-
     <string-array name="stops_16a_to_hydr">
         <item>Салтовская</item>
         <item>улица Бучмы</item>
@@ -85,7 +35,6 @@
         <item>Моисеевский мост</item>
         <item>ул. Пестеля</item>
         <item>ст. м. Киевская</item>
-        <item>ул. Матюшенко</item>
         <item>ул. Кольцовская</item>
         <item>Жилищно-коммунальный техникум</item>
         <item>ул. Луганская</item>
@@ -101,6 +50,7 @@
         <item>Сосновый бор</item>
         <item>ул. Барабошово</item>
         <item>Пески</item>
+        <item>524 мкр</item>
         <item>ст. м. Героев Труда</item>
         <item>Салтовский рынок</item>
         <item>ул. Гвардейцев Широнинцев</item>
@@ -109,5 +59,58 @@
         <item>11-ая поликлиника</item>
         <item>улица Бучмы</item>
         <item>Салтовская</item>
+    </string-array>
+
+
+    <string-array name="stops_16_to_salt">
+
+
+        <item>Журавлевский гидропарк</item>
+        <item>ул. Тахиаташская</item>
+        <item>ул. Луганская</item>
+        <item>Жилищно-коммунальный техникум</item>
+        <item>ул. Кольцовская</item>
+        <item>ул. Матюшенко</item>
+        <item>ст. м. Киевская</item>
+        <item>ул. Пестеля</item>
+        <item>Моисеевский мост</item>
+        <item>ул. Тюринская</item>
+        <item>Сабурова Дача</item>
+        <item>проулок Салтовский</item>
+        <item>ул. Камышева</item>
+        <item>проулок Солнечный</item>
+        <item>ст. м. Академика Барабошово</item>
+        <item>проулок Муроский</item>
+        <item>ст. м. Академика Павлова</item>
+        <item>ул. Пешкова</item>
+        <item>ст. м. Студенческая</item>
+        <item>522 микрорайон</item>
+        <item>ст. м. Героев Труда</item>
+        <item>Салтовский рынок</item>
+        <item>ул. Гвардейцев Широнинцев</item>
+        <item>531 микрорайон</item>
+        <item>Владимирская церковь</item>
+        <item>11-ая поликлиника</item>
+        <item>улица Бучмы</item>
+        <item>Салтовская</item>
+    </string-array>
+
+    <string-array name="stops_16_to_hydr">
+        <item>Салтовская</item>
+        <item>улица Бучмы</item>
+        <item>11-ая поликлиника</item>
+        <item>Владимирская церковь</item>
+        <item>531 микрорайон</item>
+        <item>ул. Гвардейцев Широнинцев</item>
+        <item>Салтовский рынок</item>
+        <item>524 микрорайон</item>
+        <item>ст. м. Героев Труда</item>
+        <item>Пески</item>
+        <item>ул. Барабошово</item>
+        <item>Сосновый бор</item>
+        <item>ул. Жильярды</item>
+        <item>ул. Саперная</item>
+        <item>ул. Колпака</item>
+        <item>Журавлевский гидропарк</item>
     </string-array>
 </resources>

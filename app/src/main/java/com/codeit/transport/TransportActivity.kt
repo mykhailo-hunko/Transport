@@ -125,20 +125,13 @@ class TransportActivity : AppCompatActivity() {
 
     private fun setNearestTram(tram: Tram) {
         val timeNow = LocalTime.now()
-        val minutesForAdd = if (tram.information.startsWith("16A")) {
-            25L
-        } else {
-            4L
-        }
         for (i in tram.list) {
             if (timeNow.hour - i.hour < 2 || timeNow.hour - i.hour > -2) {
-                if (i.plusMinutes(minutesForAdd) > timeNow) {
-                    val futureTram = i.plusMinutes(minutesForAdd)
-
+                if (i > timeNow) {
                     val minute =
-                        if (futureTram.minute < 10) "0" + futureTram.minute else futureTram.minute
+                        if (i.minute < 10) "0" + i.minute else i.minute
                     nearestTramTextView.text =
-                        getString(R.string.the_nearest_tram) + " ${futureTram.hour}:$minute"
+                        getString(R.string.the_nearest_tram) + " ${i.hour}:$minute"
                     return
                 }
             }

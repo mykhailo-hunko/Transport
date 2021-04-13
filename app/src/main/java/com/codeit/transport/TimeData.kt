@@ -69,10 +69,7 @@ class TimeData{
             hydr16A.addAll(it.resources.getStringArray(R.array.stops_16a_to_hydr).toList())
             salt16.addAll(it.resources.getStringArray(R.array.stops_16_to_salt).toList())
         }
-        val hydr16Size = 27
-        val salt16Size = 16
-        val hydr16ASize = 28
-        val salt16ASize = 15
+
 
         for(i in 0 until hydr16Size){
             Hydr16Map[i] = hydr16[i]
@@ -104,16 +101,16 @@ class TimeData{
         //}
         val multiple = when {
             path.startsWith("16A_Saltovska") -> {
-                salt16A.indexOf(salt16A.firstOrNull{s: String ->s == station})
-            }
-            path.startsWith("16A_Hydropark") -> {
                 hydr16A.indexOf(hydr16A.firstOrNull{s: String ->s == station})
             }
+            path.startsWith("16A_Hydropark") -> {
+                salt16A.indexOf(salt16A.firstOrNull{s: String ->s == station})
+            }
             path.startsWith("16_Saltovska") -> {
-                salt16.indexOf(salt16.firstOrNull{s: String ->s == station})
+                hydr16.indexOf(hydr16.firstOrNull{s: String ->s == station})
             }
             path.startsWith("16_Hydropark") -> {
-                hydr16.indexOf(hydr16.firstOrNull{s: String ->s == station})
+                salt16.indexOf(salt16.firstOrNull{s: String ->s == station})
             }
             else ->{
                 -1
@@ -123,16 +120,22 @@ class TimeData{
         generateScheldule(multiple + 1, path)
    }
 
-    fun generateScheldule(multiple: Int, path: String): MutableMap<String, Tram>{
+    private fun generateScheldule(multiple: Int, path: String): MutableMap<String, Tram>{
         val localTimeList:  MutableList<LocalTime> = mutableListOf()
 
         for(i in 0 until (tramMap[path]?.list?.size ?: 0)){
-            val tmpTime: LocalTime = LocalTime.now()
             localTimeList.add(((tramMap[path]?.list?.get(i)?.plusMinutes((multiple*2).toLong()) ?: 0) as LocalTime))
         }
 
         val tmp = Tram(path, localTimeList)
         currentStationMap[path] = tmp
         return currentStationMap
+    }
+
+    companion object {
+        const val hydr16Size = 16
+        const val salt16Size = 27
+        const val hydr16ASize = 27
+        const val salt16ASize = 16
     }
 }
