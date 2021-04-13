@@ -121,6 +121,7 @@ class TransportActivity : AppCompatActivity() {
             }
             table.addView(row)
         }
+        // table.removeAllViews()
     }
 
     private fun setNearestTram(tram: Tram) {

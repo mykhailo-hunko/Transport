@@ -124,7 +124,7 @@ class TimeData{
         val localTimeList:  MutableList<LocalTime> = mutableListOf()
 
         for(i in 0 until (tramMap[path]?.list?.size ?: 0)){
-            localTimeList.add(((tramMap[path]?.list?.get(i)?.plusMinutes((multiple*2).toLong()) ?: 0) as LocalTime))
+            localTimeList.add(((tramMap[path]?.list?.get(i)?.plusSeconds((multiple*111).toLong()) ?: 0) as LocalTime))
         }
 
         val tmp = Tram(path, localTimeList)
@@ -135,7 +135,7 @@ class TimeData{
     companion object {
         const val hydr16Size = 16
         const val salt16Size = 27
-        const val hydr16ASize = 27
+        const val hydr16ASize = 27 // 111 секунд
         const val salt16ASize = 16
     }
 }
