@@ -123,8 +123,15 @@ class TimeData{
     private fun generateScheldule(multiple: Int, path: String): MutableMap<String, Tram>{
         val localTimeList:  MutableList<LocalTime> = mutableListOf()
 
-        for(i in 0 until (tramMap[path]?.list?.size ?: 0)){
-            localTimeList.add(((tramMap[path]?.list?.get(i)?.plusSeconds((multiple*111).toLong()) ?: 0) as LocalTime))
+        if(multiple != 1){
+            for(i in 0 until (tramMap[path]?.list?.size ?: 0)){
+                localTimeList.add(((tramMap[path]?.list?.get(i)?.plusSeconds((multiple*111).toLong()) ?: 0) as LocalTime))
+            }
+        }
+        else{
+            for(i in 0 until (tramMap[path]?.list?.size ?: 0)){
+                localTimeList.add(((tramMap[path]?.list?.get(i) ?: 0) as LocalTime))
+            }
         }
 
         val tmp = Tram(path, localTimeList)

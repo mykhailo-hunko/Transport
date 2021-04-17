@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Transport</string>
     <string name="the_nearest_tram">The nearest tram are arriving at:</string>
+    <string name="station">Station: %1$s</string>
     <string name="options">Options:</string>
     <string name="weekday">Weekday</string>
     <string name="saturday">Saturday</string>

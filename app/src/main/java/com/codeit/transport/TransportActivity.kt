@@ -20,6 +20,7 @@ class TransportActivity : AppCompatActivity() {
     private lateinit var dayRadioGroup: RadioGroup
     private lateinit var table: TableLayout
     private lateinit var nearestTramTextView: TextView
+    private lateinit var station: TextView
     private lateinit var editText: AutoCompleteTextView
     private lateinit var applyButton: Button
 
@@ -29,6 +30,7 @@ class TransportActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transport)
+        station = findViewById(R.id.station)
         routeRadioGroup = findViewById(R.id.routeRadioGroup)
         tramStopRadioGroup = findViewById(R.id.tramStopRadioGroup)
         dayRadioGroup = findViewById(R.id.dayRadioGroup)
@@ -56,7 +58,15 @@ class TransportActivity : AppCompatActivity() {
             //todo interaction with button
             val stopName: String = editText.text.toString()
             timeData.getCurrentStationTime(getKeyString(), stopName)
-            fillTableLayout()
+
+            if(editText.text.isNullOrEmpty()){
+                table.removeAllViews()
+            }
+            else{
+                editText.text = null
+                station.text = getString(R.string.station, stopName)
+                fillTableLayout()
+            }
         }
     }
 

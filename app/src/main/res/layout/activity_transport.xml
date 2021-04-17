@@ -123,6 +123,7 @@
         android:orientation="horizontal">
 
         <AutoCompleteTextView
+            android:maxLines="1"
             android:id="@+id/autoTextView"
             android:layout_width="210dp"
             android:layout_height="wrap_content"
@@ -137,6 +138,17 @@
             android:textSize="12sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+
+    <TextView
+        android:id="@+id/station"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/station"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/nearestTram"
